@@ -9,6 +9,7 @@ import NextImage from "next/image";
 import MenuItem from "./molecules/MenuItem";
 import MyDivider from "./atoms/divider";
 import PlaylistItem from "./molecules/PlaylistItem";
+import { usePlaylist } from "../lib/hooks";
 
 const navMenu = [
   {
@@ -41,16 +42,10 @@ const musicMenu = [
   },
 ];
 
-const playlist = new Array(50).fill(1).map((_, i) => {
-  return {
-    name: `Playlist ${i + 1}`,
-    route: "/",
-  };
-});
-
 export default function Sidebar() {
+  const { playlists } = usePlaylist();
   return (
-    <div className="w-full h-[calc(100vh-80px)] bg-black px-2.5 text-gray-500">
+    <div className="w-full h-[(100vh-80px)] bg-black px-2.5 text-gray-500">
       <div className="py-5 h-full">
         <div className="w-32 px-5">
           <NextImage
@@ -69,7 +64,7 @@ export default function Sidebar() {
         <MyDivider />
         <div className="h-3/5 overflow-auto">
           <ul>
-            <PlaylistItem data={playlist} />
+            <PlaylistItem data={playlists} />
           </ul>
         </div>
       </div>
