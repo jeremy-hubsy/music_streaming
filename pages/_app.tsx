@@ -5,8 +5,14 @@ import PlayerLayout from "../components/playerLayout";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <PlayerLayout>
-      <Component {...pageProps} />
-    </PlayerLayout>
+    <>
+      {Component.authPage ? (
+        <Component {...pageProps} />
+      ) : (
+        <PlayerLayout>
+          <Component {...pageProps} />
+        </PlayerLayout>
+      )}
+    </>
   );
 }
