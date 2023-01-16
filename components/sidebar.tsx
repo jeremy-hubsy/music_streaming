@@ -45,7 +45,7 @@ const musicMenu = [
 export default function Sidebar() {
   const { playlists } = usePlaylist();
   return (
-    <div className="w-full h-[(100vh-80px)] bg-black px-2.5 text-gray-500">
+    <div className="w-full h-[calc(100vh-80px)] bg-black px-2.5 text-gray-500">
       <div className="py-5 h-full">
         <div className="w-32 px-5">
           <NextImage

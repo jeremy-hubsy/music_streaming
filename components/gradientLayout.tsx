@@ -10,7 +10,7 @@ export default function GradientLayout({
   roundImage,
 }) {
   return (
-    <div className="h-[(100vh-80px)] overflow-y-auto bg-gradient-to-b from-red-500 to-black">
+    <div className="h-full overflow-y-auto bg-gradient-to-b from-red-500 to-black">
       <div className={`flex bg-${color}.600 p-9 items-end `}>hello</div>
     </div>
   );
