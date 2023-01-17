@@ -7,13 +7,13 @@ import { userAgent } from 'next/server'
 
 export default async(req: NextApiRequest, res: NextApiResponse) => {
     const {email, password} = req.body
+    console.log(email, password)
     const user = await prisma.user.findUnique({
         where: {
             email,
         }
     })
 
-    console.log(user)
 
     if(user && bcrypt.compareSync(password, user.password)){
         const token = jwt.sign({

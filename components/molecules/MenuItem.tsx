@@ -14,7 +14,7 @@ type Props = {
 export default function MenuItem(props: Props) {
   return (
     <>
-      {props.data.map((menu: MenuItem, i: number) => {
+      {props.data?.map((menu: MenuItem, i: number) => {
         return (
           <li className="my-2 px-5">
             <div>

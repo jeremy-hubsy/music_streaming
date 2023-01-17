@@ -11,10 +11,10 @@ type Props = {
 };
 
 export default function PlaylistItem(props: Props) {
-  // console.log(props.data);
+  console.log(props.data);
   return (
     <>
-      {props.data.map((playlist: PlaylistItem, i: number) => {
+      {props?.data?.map((playlist: PlaylistItem, i: number) => {
         console.log(playlist);
         return (
           <li className="px-5" key={i}>
