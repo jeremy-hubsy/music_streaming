@@ -6,14 +6,13 @@ export default function GradientLayout({
   subtitle,
   title,
   description,
-  roundImage,
 }) {
   return (
     <div className="h-full overflow-y-auto bg-gradient-to-b from-red-700 via-black to-black">
       <div className={`flex p-9 items-end `}>
         <div className="p-5">
           <Image
-            className="shadow-slate-900 rounded-3xl"
+            className="shadow-slate-900 rounded-full"
             height={120}
             width={120}
             src={image}
@@ -26,6 +25,7 @@ export default function GradientLayout({
           <p className="text-xs font-light text-white">{description}</p>
         </div>
       </div>
+      <div className="py-14">{children}</div>
     </div>
   );
 }

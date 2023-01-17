@@ -16,7 +16,7 @@ export default function MenuItem(props: Props) {
     <>
       {props.data?.map((menu: MenuItem, i: number) => {
         return (
-          <li className="my-2 px-5">
+          <li className="my-2 px-5" key={i}>
             <div>
               <Link href={menu.route} className="flex flex-row items-center">
                 <menu.icon className="mr-1" />

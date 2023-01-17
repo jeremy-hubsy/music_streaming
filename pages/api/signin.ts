@@ -7,7 +7,6 @@ import { userAgent } from 'next/server'
 
 export default async(req: NextApiRequest, res: NextApiResponse) => {
     const {email, password} = req.body
-    console.log(email, password)
     const user = await prisma.user.findUnique({
         where: {
             email,

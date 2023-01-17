@@ -4,7 +4,6 @@ import fetcher from './fetcher'
  
 export function useMe(){
     const {data, error} = useSWR('/me', fetcher )
-    console.log(data)
 
     return {
         user: data,
