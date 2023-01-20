@@ -2432,6 +2432,11 @@
   dependencies:
     "tslib" "^2.0.3"
 
+"format-duration@^3.0.2":
+  "integrity" "sha512-pKzJDSRgK2lqAiPW3uizDaIJaJnataZclsahz25UMwfdryBGDa+1HlbXGjzpMvX/2kMh4O0sNevFXKaEfCjHsA=="
+  "resolved" "https://registry.npmjs.org/format-duration/-/format-duration-3.0.2.tgz"
+  "version" "3.0.2"
+
 "fraction.js@^4.2.0":
   "integrity" "sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA=="
   "resolved" "https://registry.npmjs.org/fraction.js/-/fraction.js-4.2.0.tgz"

@@ -1,10 +1,11 @@
+//@ts-ignore
 import jwt from 'jsonwebtoken'
 import { NextApiRequest, NextApiResponse } from 'next'
 import prisma from './prisma'
 import {User} from '../pages/api/me'
 
-type Handler = {
-    req: NextApiRequest, res: NextApiResponse, user: User
+interface Handler {
+    (req: NextApiRequest, res: NextApiResponse, user: User): void
 }
 
 export const validateRoute = (handler: Handler) => {
@@ -31,4 +32,10 @@ export const validateRoute = (handler: Handler) => {
         res.status(401)
         res.json({error: 'Not Authorized'})
     }
+}
+
+
+export const validateToken = token => {
+    const user = jwt.verify(token, 'hello')
+    return user
 }

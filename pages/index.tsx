@@ -34,6 +34,8 @@ function Home({ artists }: any) {
       title={`${user?.firstName} ${user?.lastName}`}
       description={`${user?.playlistsCount} public playlist`}
       image="/teddy.png"
+      color="from-red-500"
+      rounded="rounded-full"
     >
       <div className="text-white">
         <div className="w-full h-full p-5">

@@ -17,7 +17,13 @@ export default function PlaylistItem(props: Props) {
         return (
           <li className="px-5" key={i}>
             <div>
-              <Link href="/" className="flex flex-row items-center">
+              <Link
+                href={{
+                  pathname: "/playlist/[id]",
+                  query: { id: playlist.id },
+                }}
+                className="flex flex-row items-center"
+              >
                 {playlist.name}
               </Link>
             </div>

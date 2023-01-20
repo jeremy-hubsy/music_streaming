@@ -1,5 +1,8 @@
+//@ts-ignore
 import bcrypt from 'bcrypt'
+//@ts-ignore
 import jwt from 'jsonwebtoken'
+//@ts-ignore
 import cookie from 'cookie'
 import prisma from '../../lib/prisma'
 import { NextApiRequest, NextApiResponse } from 'next'

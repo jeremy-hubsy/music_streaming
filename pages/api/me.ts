@@ -8,7 +8,6 @@ export type User = {
     createdAt: Date,
     updatedAt: Date,
     email: string,
-    fristName: string,
     lastName: string,
     password: string
 
@@ -20,6 +19,5 @@ export default validateRoute(async (req, res, user) => {
             userId: user.id
         }
     })
-    console.log(playlistsCount)
     res.json({...user,  playlistsCount })
 })
