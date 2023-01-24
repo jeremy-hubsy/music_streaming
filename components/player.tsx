@@ -9,6 +9,9 @@ import {
   MdOutlineRepeat,
 } from "react-icons/md";
 import { useStoreActions } from "easy-peasy";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
+import { formatTime } from "../lib/formatters";
 
 type Props = {
   songs: string[];
@@ -18,11 +21,37 @@ type Props = {
 const Player = (props: Props) => {
   const { songs, activeSong } = props;
   const [playing, setPlaying] = useState(true);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(
+    songs.findIndex((s) => s.id === activeSong.id)
+  );
   const [seek, setSeek] = useState(0.0);
   const [repeat, setRepeat] = useState(false);
   const [shuffle, setShuffle] = useState(false);
   const [duration, setDuration] = useState(0.0);
+  const soundRef = useRef(null);
+  const repeatRef = useRef(repeat);
+  const setActiveSong = useStoreActions((state: any) => state.changeActiveSong);
+
+  useEffect(() => {
+    let timerId;
+    if (playing) {
+      const f = () => {
+        setSeek(soundRef.current.seek());
+        timerId = requestAnimationFrame(f);
+      };
+      timerId = requestAnimationFrame(f);
+      return () => cancelAnimationFrame(timerId);
+    }
+    cancelAnimationFrame(timerId);
+  }, [playing]);
+
+  useEffect(() => {
+    setActiveSong(songs[index]);
+  }, [index, setActiveSong, songs]);
+
+  useEffect(() => {
+    repeatRef.current = repeat;
+  }, [repeat]);
 
   const setPlayState = (value: boolean) => {
     setPlaying(value);
@@ -36,10 +65,54 @@ const Player = (props: Props) => {
     setRepeat((state) => !state);
   };
 
+  const prevSong = () => {
+    setIndex((state) => {
+      return state ? state - 1 : songs.length - 1;
+    });
+  };
+  const nextSong = () => {
+    setIndex((state) => {
+      if (shuffle) {
+        const next = Math.floor(Math.random() * songs.length);
+        if (next === state) {
+          return nextSong();
+        }
+        return next;
+      } else {
+        return state === songs.length - 1 ? 0 : state + 1;
+      }
+    });
+  };
+
+  const onEnd = () => {
+    if (repeatRef.current) {
+      setSeek(0);
+      soundRef.current.seek(0);
+    } else {
+      nextSong();
+    }
+  };
+
+  const onLoad = () => {
+    const songDuration = soundRef.current.duration();
+    setDuration(songDuration);
+  };
+
+  const onSeek = (e) => {
+    setSeek(parseFloat(e));
+    soundRef.current.seek(e);
+  };
+
   return (
     <div>
       <div>
-        <ReactHowler playing={playing} src={activeSong?.url} />
+        <ReactHowler
+          playing={playing}
+          src={activeSong?.url}
+          ref={soundRef}
+          onLoad={onLoad}
+          onEnd={onEnd}
+        />
       </div>
       <div className="justify-center">
         <div className="flex justify-center">
@@ -50,7 +123,11 @@ const Player = (props: Props) => {
           >
             <MdShuffle />
           </button>
-          <button className="text-slate-500 p-2" aria-label="previous">
+          <button
+            className="text-slate-500 p-2"
+            aria-label="previous"
+            onClick={prevSong}
+          >
             <MdSkipPrevious />
           </button>
           {playing ? (
@@ -71,7 +148,11 @@ const Player = (props: Props) => {
             </button>
           )}
 
-          <button className="text-slate-500 p-2" aria-label="next">
+          <button
+            className="text-slate-500 p-2"
+            aria-label="next"
+            onClick={nextSong}
+          >
             <MdSkipNext />
           </button>
           <button
@@ -86,17 +167,25 @@ const Player = (props: Props) => {
       <div className="text-slate-600">
         <div className="flex justify-center items-center">
           <div className="w-1/12 items-center">
-            <p className="text-xs items-center justify-center">1:21</p>
+            <p className="text-xs items-center justify-center">
+              {formatTime(seek)}
+            </p>
           </div>
           <div className="w-10/12 flex items-center">
-            <div className="relative h-1 w-full bg-zinc-800 rounded">
-              <div className="absolute h-full w-1/4 bg-zinc-600 flex items-center justify-end rounded">
-                <div className="rounded-full w-3 h-3 bg-white shadow"></div>
-              </div>
-            </div>
+            <Slider
+              railStyle={{ background: "#212121" }}
+              trackStyle={{ background: "#3d3d3d" }}
+              step={0.1}
+              min={0}
+              max={duration ? duration.toFixed(2) : 0}
+              onChange={(e) => onSeek(e)}
+              value={[seek]}
+            />
           </div>
           <div className="w-1/12 items-center">
-            <p className="text-xs items-center justify-center">3:28</p>
+            <p className="text-xs items-center justify-center">
+              {formatTime(duration)}
+            </p>
           </div>
         </div>
       </div>

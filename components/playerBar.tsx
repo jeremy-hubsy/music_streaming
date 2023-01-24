@@ -4,7 +4,7 @@ import { useStoreState } from "easy-peasy";
 const PlayerBar = () => {
   const songs = useStoreState((state: any) => state.activeSongs);
   const activeSong = useStoreState((state: any) => state.activeSong);
-  console.log(activeSong);
+
   return (
     <div className="h-20 bg-zinc-900 w-screen p-3 text-white">
       <div className="flex items-center">
