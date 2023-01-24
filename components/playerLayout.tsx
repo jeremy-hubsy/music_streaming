@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import PlayerBar from "./playerBar";
 import Sidebar from "./sidebar";
 
 const PlayerLayout = ({ children }: any) => {
@@ -10,7 +11,9 @@ const PlayerLayout = ({ children }: any) => {
       <div className="ml-60 mb-28">
         <div className="h-[calc(100vh-80px)]">{children}</div>
       </div>
-      <div className="absolute bottom-0">player</div>
+      <div className="absolute bottom-0">
+        <PlayerBar />
+      </div>
     </div>
   );
 };
