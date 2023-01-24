@@ -9,7 +9,7 @@ function Home({ artists }: any) {
   const artist = artists.map((element, i) => {
     return (
       <div className="p-2 w-3/6 h-3/6" key={i}>
-        <div className="h-full w-full p-2 bg-stone-900 rounded-lg">
+        <div className="h-full w-full p-2 bg-zinc-900 rounded-lg">
           <div className="flex justify-center mt-5">
             <Image
               alt="profile picture artist"

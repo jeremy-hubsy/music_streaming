@@ -8,6 +8,6 @@ export const store = createStore({
         state.activeSongs = payload
     }),
     changeActiveSong : action((state: any, payload) => {
-        state.activeSongs = payload
+        state.activeSong = payload
     }),
 })

@@ -1,6 +1,7 @@
 import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { formatDate, formatTime } from "../lib/formatters";
+import { useStoreActions } from "easy-peasy";
 
 type Song = {
   id: number;
@@ -17,6 +18,13 @@ type Props = {
 };
 
 export default function SongTable({ songs }: Props) {
+  const playSongs = useStoreActions((store: any) => store.changeActiveSongs);
+  const setActiveSong = useStoreActions((store: any) => store.changeActiveSong);
+  const handlePlay = (activeSong?) => {
+    setActiveSong(activeSong || songs[0]);
+    playSongs(songs);
+  };
+
   return (
     <div className="text-slate-300 text-xs bg-transparent">
       <div className="p-3 mb-5">
@@ -24,6 +32,7 @@ export default function SongTable({ songs }: Props) {
           <button
             aria-label="play"
             className=" bg-emerald-700 rounded-full h-10 w-10 flex items-center justify-center hover:bg-emerald-900"
+            onClick={() => handlePlay()}
           >
             <BsFillPlayFill size={30} />
           </button>
@@ -45,6 +54,7 @@ export default function SongTable({ songs }: Props) {
                 <tr
                   className="hover:bg-opacity-5 hover:bg-white h-20 cursor-pointer"
                   key={song.id}
+                  onClick={() => handlePlay(song)}
                 >
                   <td>{i + 1}</td>
                   <td>{song.name}</td>
